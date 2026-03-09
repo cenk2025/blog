@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { PostForm } from "../post-form";
+import { PostForm } from "../../post-form";
 import { notFound } from "next/navigation";
 
 export default async function EditPost({

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { CategoryForm } from "../category-form";
+import { CategoryForm } from "../../category-form";
 import { notFound } from "next/navigation";
 
 export default async function EditCategory({

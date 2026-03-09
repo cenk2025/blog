@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const localizedPosts = locales.flatMap((locale) =>
-    posts.map((post: any) => ({
+    posts.map((post: { slug: string; published_at: string }) => ({
       url: `${siteUrl}/${locale}/blog/${post.slug}`,
       lastModified: post.published_at,
       changeFrequency: "monthly" as const,

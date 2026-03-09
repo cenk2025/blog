@@ -1,5 +1,5 @@
 import { SocialShare } from "@/components/social-share";
-import { getDictionary, isValidLocale, Locale, locales } from "@/lib/i18n";
+import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
 import { formatDate } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { ArrowLeft, CalendarDays, Clock3 } from "lucide-react";
