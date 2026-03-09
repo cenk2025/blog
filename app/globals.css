@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-aurora-light font-body text-ink-light antialiased transition-colors duration-500;
+}
+
+.dark body {
+  @apply bg-aurora-dark text-ink-dark;
+}
+
+* {
+  @apply border-white/10;
+}
+
+::selection {
+  @apply bg-accent-cyan/35 text-ink-dark;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
