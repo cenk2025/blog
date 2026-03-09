@@ -1,7 +1,7 @@
 import { SocialShare } from "@/components/social-share";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
 import { formatDate } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { ArrowLeft, CalendarDays, Clock3 } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -23,7 +23,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: post } = await supabase
     .from("posts")
     .select("*")
@@ -63,7 +63,7 @@ export default async function BlogPostPage({
   }
 
   const locale = lang as Locale;
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: rawPost } = await supabase
     .from("posts")
     .select("*")
@@ -77,6 +77,7 @@ export default async function BlogPostPage({
   const post = {
     slug: rawPost.slug,
     coverImage: rawPost.cover_image || "/images/covers/ai-systems.svg",
+    bottomImage: rawPost.bottom_image || null,
     author: rawPost.author,
     publishedAt: rawPost.published_at,
     readingTime: rawPost.reading_time,
@@ -138,6 +139,18 @@ export default async function BlogPostPage({
             </p>
           ))}
         </div>
+
+        {post.bottomImage && (
+          <div className="relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-3xl border border-white/10 shadow-lg">
+            <Image
+              src={post.bottomImage}
+              alt={`${translated.title} bottom image`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <div className="mt-8 flex flex-wrap gap-2">
           {post.tags?.map((tag: string) => (

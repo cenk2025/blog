@@ -5,7 +5,7 @@ import { NewsletterCard } from "@/components/newsletter-card";
 import { PostCard } from "@/components/post-card";
 import { SectionHeader } from "@/components/section-header";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -37,7 +37,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   const locale = lang as Locale;
   const dict = getDictionary(locale);
-  const supabase = await createClient();
+  const supabase = createPublicClient();
 
   const { data: rawPosts } = await supabase
     .from("posts")

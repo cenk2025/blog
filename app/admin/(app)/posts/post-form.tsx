@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { ImageUpload } from "./image-upload";
 
 export function PostForm({
   initialData,
@@ -22,6 +23,8 @@ export function PostForm({
     reading_time: initialData?.reading_time || 5,
     category_id: initialData?.category_id || "",
     featured: initialData?.featured || false,
+    cover_image: initialData?.cover_image || "",
+    bottom_image: initialData?.bottom_image || "",
     enTitle: initialData?.translations?.en?.title || "",
     enExcerpt: initialData?.translations?.en?.excerpt || "",
     enContent: initialData?.translations?.en?.content?.join("\n\n") || "",
@@ -40,6 +43,8 @@ export function PostForm({
       reading_time: formData.reading_time,
       category_id: formData.category_id || null,
       featured: formData.featured,
+      cover_image: formData.cover_image,
+      bottom_image: formData.bottom_image,
       translations: {
         en: {
           title: formData.enTitle,
@@ -151,6 +156,22 @@ export function PostForm({
           <label htmlFor="featured" className="text-sm font-medium">
             Featured Post (Show on Home)
           </label>
+        </div>
+        <div className="col-span-full grid gap-6 md:grid-cols-2">
+          <div>
+            <label className="mb-2 block text-sm font-medium">Cover Image (Top)</label>
+            <ImageUpload
+              value={formData.cover_image}
+              onChange={(url) => setFormData({ ...formData, cover_image: url })}
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium">Bottom Image (16:9)</label>
+            <ImageUpload
+              value={formData.bottom_image}
+              onChange={(url) => setFormData({ ...formData, bottom_image: url })}
+            />
+          </div>
         </div>
       </div>
 

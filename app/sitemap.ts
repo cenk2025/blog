@@ -1,5 +1,5 @@
 import { locales } from "@/lib/i18n";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { MetadataRoute } from "next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://futureframe.example";
@@ -7,7 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://futureframe.example
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = ["", "/blog", "/categories", "/about", "/contact"];
   
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: rawPosts } = await supabase.from("posts").select("slug, published_at");
   const posts = rawPosts || [];
 

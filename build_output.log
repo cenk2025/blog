@@ -1,0 +1,58 @@
+
+> futureframe-blog@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.12
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1404ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/22) ...
+   Generating static pages (5/22) 
+   Generating static pages (10/22) 
+   Generating static pages (16/22) 
+ ✓ Generating static pages (22/22)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      142 B         102 kB
+├ ○ /_not-found                            142 B         102 kB
+├ ● /[lang]                              4.07 kB         155 kB
+├   ├ /en
+├   └ /fi
+├ ● /[lang]/about                          142 B         102 kB
+├   ├ /en/about
+├   └ /fi/about
+├ ● /[lang]/blog                         2.06 kB         153 kB
+├   ├ /en/blog
+├   └ /fi/blog
+├ ● /[lang]/blog/[slug]                  1.35 kB         113 kB
+├ ● /[lang]/categories                   2.01 kB         144 kB
+├   ├ /en/categories
+├   └ /fi/categories
+├ ● /[lang]/contact                        174 B         106 kB
+├   ├ /en/contact
+├   └ /fi/contact
+├ ƒ /admin                                 142 B         102 kB
+├ ƒ /admin/categories                      174 B         106 kB
+├ ƒ /admin/categories/[id]/edit          1.38 kB         158 kB
+├ ƒ /admin/categories/new                1.38 kB         158 kB
+├ ƒ /admin/login                           338 B         102 kB
+├ ƒ /admin/posts                           174 B         106 kB
+├ ƒ /admin/posts/[id]/edit                 127 B         166 kB
+├ ƒ /admin/posts/new                       127 B         166 kB
+├ ○ /robots.txt                            142 B         102 kB
+└ ○ /sitemap.xml                           142 B         102 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-ebd51be49873d76c.js         46 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,210 @@
+
+> futureframe-blog@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.12
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.27:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1265ms
+ ○ Compiling /[lang] ...
+ ✓ Compiled /[lang] in 685ms (1581 modules)
+ GET /en 200 in 1786ms
+ GET /en 200 in 351ms
+ ✓ Compiled /[lang]/blog/[slug] in 348ms (1588 modules)
+ GET /en/blog/in-the-near-future 200 in 1159ms
+ ✓ Compiled /[lang] in 181ms (933 modules)
+ GET /en 200 in 885ms
+ ✓ Compiled /admin in 333ms (1635 modules)
+ GET /admin 200 in 1532ms
+ GET /en 200 in 532ms
+ GET /en/blog/In-the-Near-Future 200 in 390ms
+ ✓ Compiled in 581ms (700 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json',
+  page: '/en/blog/In-the-Near-Future'
+}
+ ✓ Compiled /_error in 349ms (1981 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Restoring pack failed from /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/cache/webpack/client-development-fallback.pack.gz: Error: invalid bit length repeat
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json',
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+ GET /en/blog/In-the-Near-Future 500 in 2236ms
+ GET /en/blog/In-the-Near-Future 500 in 236ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json',
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ Failed to generate static paths for /[lang]/blog/[slug]:
+[Error: Cannot find module './vendor-chunks/@supabase.js'
+Require stack:
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/webpack-runtime.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/app/[lang]/blog/[slug]/page.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/require.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/load-components.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/build/utils.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json',
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+ GET /en/blog/In-the-Near-Future 500 in 780ms
+ GET /en/blog/In-the-Near-Future 500 in 322ms
+ ⨯ [Error: Cannot find module './vendor-chunks/@supabase.js'
+Require stack:
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/webpack-runtime.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/app/[lang]/blog/[slug]/page.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/require.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/load-components.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/build/utils.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: Cannot find module './vendor-chunks/@supabase.js'
+Require stack:
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/webpack-runtime.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/app/[lang]/blog/[slug]/page.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/require.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/load-components.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/build/utils.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+ GET /en/blog/In-the-Near-Future 500 in 659ms
+ GET /en/blog/In-the-Near-Future 500 in 237ms
+ ⨯ [Error: Cannot find module './vendor-chunks/@supabase.js'
+Require stack:
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/webpack-runtime.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/app/[lang]/blog/[slug]/page.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/require.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/load-components.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/build/utils.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: Cannot find module './vendor-chunks/@supabase.js'
+Require stack:
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/webpack-runtime.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/server/app/[lang]/blog/[slug]/page.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/require.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/load-components.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/build/utils.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/cenkyakinlar/.gemini/antigravity/scratch/blog/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/blog/In-the-Near-Future'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/cenkyakinlar/.gemini/antigravity/scratch/blog/.next/routes-manifest.json'
+}
+ GET /en/blog/In-the-Near-Future 500 in 673ms
+ GET /en/blog/In-the-Near-Future 500 in 245ms
+ ✓ Compiled in 191ms (851 modules)
+ ✓ Compiled in 121ms (851 modules)
+ ✓ Compiled in 338ms (1900 modules)
+ ✓ Compiled in 275ms (1900 modules)
+ ✓ Compiled in 71ms (851 modules)
+ ✓ Compiled in 75ms (851 modules)
