@@ -61,12 +61,12 @@ export default async function ContactPage({
         <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-5">
           <p className="text-sm text-ink-light/65 dark:text-ink-dark/65">LinkedIn</p>
           <Link
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/cenk-yakinlar-7417385b/"
             target="_blank"
             rel="noreferrer"
             className="mt-2 inline-block text-base text-accent-cyan"
           >
-            linkedin.com/in/cenkyakinlar
+            linkedin.com/in/cenk-yakinlar-7417385b
           </Link>
         </div>
       </div>

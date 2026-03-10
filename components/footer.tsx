@@ -26,7 +26,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </Link>
           <SocialIcon href="https://github.com" label="GitHub" icon={<Github className="h-4 w-4" />} />
           <SocialIcon
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/cenk-yakinlar-7417385b/"
             label="LinkedIn"
             icon={<Linkedin className="h-4 w-4" />}
           />

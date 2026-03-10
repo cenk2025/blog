@@ -149,8 +149,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       emailLabel: "Email",
       locationLabel: "Location",
       collaborationLabel: "Collaboration",
-      emailValue: "hello@futureframe.dev",
-      locationValue: "Helsinki, Finland",
+      emailValue: "cenk.yakinlar@hotmail.com",
+      locationValue: "Jyväskylä/Suomi",
       collaborationValue: "Product strategy, AI prototyping, keynote speaking"
     },
     footer: {
@@ -228,8 +228,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       emailLabel: "Sahkoposti",
       locationLabel: "Sijainti",
       collaborationLabel: "Yhteistyo",
-      emailValue: "hello@futureframe.dev",
-      locationValue: "Helsinki, Suomi",
+      emailValue: "cenk.yakinlar@hotmail.com",
+      locationValue: "Jyväskylä/Suomi",
       collaborationValue: "Tuotestrategia, tekoalyprototyypit, keynote-puheenvuorot"
     },
     footer: {

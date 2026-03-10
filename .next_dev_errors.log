@@ -29,3 +29,13 @@
  ✓ Compiled in 160ms (1665 modules)
  GET /admin/posts 200 in 105ms
  GET /fi/blog/In-the-Near-Future 200 in 106ms
+ GET /fi/blog/In-the-Near-Future 200 in 409ms
+ ✓ Compiled in 459ms (1665 modules)
+ GET /admin/posts 200 in 151ms
+ GET /fi/blog/In-the-Near-Future 200 in 150ms
+ ✓ Compiled in 191ms (1665 modules)
+ GET /admin/posts 200 in 160ms
+ GET /fi/blog/In-the-Near-Future 200 in 159ms
+ ✓ Compiled in 96ms (706 modules)
+ GET /admin/posts 200 in 38ms
+ GET /fi/blog/In-the-Near-Future 200 in 38ms
