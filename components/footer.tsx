@@ -1,5 +1,6 @@
 import { Dictionary, Locale } from "@/lib/i18n";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
+import { XIcon } from "@/components/icons/x-icon";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -29,7 +30,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             label="LinkedIn"
             icon={<Linkedin className="h-4 w-4" />}
           />
-          <SocialIcon href="https://x.com" label="X" icon={<Twitter className="h-4 w-4" />} />
+          <SocialIcon href="https://x.com" label="X" icon={<XIcon className="h-4 w-4" />} />
         </div>
       </div>
     </footer>

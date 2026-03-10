@@ -1,6 +1,7 @@
 "use client";
 
-import { Check, Copy, Linkedin, Share2, Twitter } from "lucide-react";
+import { Check, Copy, Linkedin, Share2 } from "lucide-react";
+import { XIcon } from "@/components/icons/x-icon";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
@@ -36,7 +37,7 @@ export function SocialShare({
         <ShareLink
           href={`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`}
           label="X"
-          icon={<Twitter className="h-4 w-4" />}
+          icon={<XIcon className="h-4 w-4" />}
         />
         <ShareLink
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
