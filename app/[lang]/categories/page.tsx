@@ -5,6 +5,8 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+export const revalidate = 60;
+
 export async function generateMetadata({
   params
 }: {

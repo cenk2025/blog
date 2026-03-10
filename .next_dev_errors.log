@@ -39,3 +39,24 @@
  ✓ Compiled in 96ms (706 modules)
  GET /admin/posts 200 in 38ms
  GET /fi/blog/In-the-Near-Future 200 in 38ms
+ ✓ Compiled /admin in 290ms (1653 modules)
+ GET /admin 200 in 2444ms
+ ○ Compiling /[lang]/contact ...
+ ✓ Compiled /[lang]/contact in 594ms (1653 modules)
+ GET /fi/contact 200 in 1156ms
+ GET /fi 200 in 1118ms
+ GET /admin/posts 200 in 1363ms
+ ○ Compiling /admin/posts/[id]/edit ...
+ ✓ Compiled /admin/posts/[id]/edit in 729ms (1770 modules)
+ GET /admin/posts/a2053426-5da4-427a-a719-2b1de03ee65a/edit 200 in 1753ms
+ GET /admin/posts 200 in 195ms
+ GET /admin/posts 200 in 268ms
+ GET /fi 200 in 500ms
+ ✓ Compiled in 676ms (1723 modules)
+ GET /fi 200 in 140ms
+ ✓ Compiled in 85ms (764 modules)
+ GET /fi 200 in 23ms
+ ✓ Compiled in 125ms (764 modules)
+ GET /fi 200 in 28ms
+ ✓ Compiled in 576ms (1723 modules)
+ GET /fi 200 in 125ms

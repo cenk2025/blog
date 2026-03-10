@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   return []; // We will render on demand for now since data comes from Supabase
 }
