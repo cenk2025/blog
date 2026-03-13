@@ -41,6 +41,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
       </h1>
       <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-light/80 dark:text-ink-dark/80">
         {dict.aboutPage.description}
+      </p>
     </section>
   );
 }
