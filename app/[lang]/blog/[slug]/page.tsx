@@ -48,7 +48,15 @@ export async function generateMetadata({
       title: translated.title,
       description: translated.excerpt,
       images: [{ url: post.cover_image || "/images/covers/ai-systems.svg" }],
-      type: "article"
+      type: "article",
+      publishedTime: post.published_at,
+      authors: [post.author]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: translated.title,
+      description: translated.excerpt,
+      images: [post.cover_image || "/images/covers/ai-systems.svg"]
     }
   };
 }
@@ -90,8 +98,35 @@ export default async function BlogPostPage({
   const dict = getDictionary(locale);
   const translated = post.translations[locale] || post.translations["en"];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: translated.title,
+    description: translated.excerpt,
+    image: post.coverImage,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+      url: "https://www.linkedin.com/in/cenk-yakinlar-7417385b/"
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Futureframe",
+      logo: {
+        "@type": "ImageObject",
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`
+      }
+    }
+  };
+
   return (
     <article className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div>
         <Link
           href={`/${locale}/blog`}
