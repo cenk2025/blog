@@ -109,7 +109,7 @@ export default async function CategoryPage({
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <p className="text-lg text-ink-light/70 dark:text-ink-dark/70">
-            {locale === "tr" ? "Henüz bu kategoride yazı bulunmuyor." : "No posts found in this category."}
+            {locale === "fi" ? "Tässä kategoriassa ei ole vielä julkaisuja." : "No posts found in this category."}
           </p>
         </div>
       )}
