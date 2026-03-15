@@ -19,11 +19,12 @@ export async function generateMetadata({
   }
 
   const supabase = createPublicClient();
+  const decodedSlug = decodeURIComponent(slug);
 
   const { data: category } = await supabase
     .from("categories")
     .select("*")
-    .eq("slug", slug)
+    .eq("slug", decodedSlug)
     .single();
 
   if (!category) {
@@ -55,11 +56,12 @@ export default async function CategoryPage({
   const locale = lang as Locale;
   const dict = getDictionary(locale);
   const supabase = createPublicClient();
+  const decodedSlug = decodeURIComponent(slug);
 
   const { data: category } = await supabase
     .from("categories")
     .select("*")
-    .eq("slug", slug)
+    .eq("slug", decodedSlug)
     .single();
 
   if (!category) {
