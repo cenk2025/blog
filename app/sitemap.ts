@@ -2,7 +2,10 @@ import { locales } from "@/lib/i18n";
 import { createPublicClient } from "@/lib/supabase/public";
 import { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://futureframe.example";
+import { siteUrl } from "@/lib/site";
+
+// Re-generate hourly so new posts appear without a redeploy.
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = ["", "/blog", "/categories", "/about", "/contact"];

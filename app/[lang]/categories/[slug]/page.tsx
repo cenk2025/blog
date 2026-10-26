@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
 
   if (!isValidLocale(lang)) {
-    return {};
+    notFound();
   }
 
   const supabase = createPublicClient();
@@ -28,9 +28,7 @@ export async function generateMetadata({
     .single();
 
   if (!category) {
-    return {
-      title: "Category Not Found"
-    };
+    notFound();
   }
 
   return {

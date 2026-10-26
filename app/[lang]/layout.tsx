@@ -22,7 +22,6 @@ export async function generateMetadata({
     title: dict.meta.title,
     description: dict.meta.description,
     alternates: {
-      canonical: `/${locale}`,
       languages: {
         en: "/en",
         fi: "/fi"
