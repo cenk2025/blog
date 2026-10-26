@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import type { ReactNode } from "react";
 import "@/app/globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://blog.voon.fi";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -16,9 +16,6 @@ export const metadata: Metadata = {
   keywords: ["AI", "Artificial Intelligence", "Software Engineering", "Tech Blog", "Future Technologies", "Web Development"],
   authors: [{ name: "Cenk Yakinlar", url: "https://www.linkedin.com/in/cenk-yakinlar-7417385b/" }],
   creator: "Cenk Yakinlar",
-  alternates: {
-    canonical: "/"
-  },
   openGraph: {
     title: "Futureframe",
     description: "A premium personal technology blog about AI, software development, and future technologies.",
@@ -31,17 +28,6 @@ export const metadata: Metadata = {
     title: "Futureframe",
     description: "A premium personal technology blog about AI, software development, and future technologies.",
     creator: "@cenkyakinlar"
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1
-    }
   }
 };
 

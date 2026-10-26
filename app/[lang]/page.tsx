@@ -19,14 +19,21 @@ export async function generateMetadata({
   const { lang } = await params;
 
   if (!isValidLocale(lang)) {
-    return {};
+    notFound();
   }
 
   const dict = getDictionary(lang);
 
   return {
     title: dict.meta.title,
-    description: dict.meta.description
+    description: dict.meta.description,
+    alternates: {
+      canonical: `/${lang}`,
+      languages: {
+        en: "/en",
+        fi: "/fi"
+      }
+    }
   };
 }
 

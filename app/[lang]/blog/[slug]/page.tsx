@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { siteUrl } from "@/lib/site";
 
 export const revalidate = 60;
 
@@ -22,7 +23,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
 
   if (!isValidLocale(lang)) {
-    return {};
+    notFound();
   }
 
   const supabase = createPublicClient();
@@ -33,7 +34,7 @@ export async function generateMetadata({
     .single();
 
   if (!post) {
-    return {};
+    notFound();
   }
 
   const translated = post.translations[lang] || post.translations["en"];
@@ -116,7 +117,7 @@ export default async function BlogPostPage({
       name: "Futureframe",
       logo: {
         "@type": "ImageObject",
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/favicon.ico`
+        url: `${siteUrl}/favicon.ico`
       }
     }
   };
