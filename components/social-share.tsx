@@ -1,8 +1,7 @@
 "use client";
 
-import { Check, Copy, Linkedin, Share2 } from "lucide-react";
+import { Check, Link2, Linkedin } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -28,21 +27,18 @@ export function SocialShare({
   const encodedTitle = encodeURIComponent(title);
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-      <h3 className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-ink-light dark:text-ink-dark">
-        <Share2 className="h-4 w-4 text-accent-cyan" />
-        {shareLabel}
-      </h3>
+    <div className="flex flex-col gap-4 rounded-[24px] bg-bg-alt p-6 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-[17px] font-semibold">{shareLabel}</p>
       <div className="flex flex-wrap gap-2">
-        <ShareLink
-          href={`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`}
-          label="X"
-          icon={<XIcon className="h-4 w-4" />}
-        />
         <ShareLink
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
           label="LinkedIn"
           icon={<Linkedin className="h-4 w-4" />}
+        />
+        <ShareLink
+          href={`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`}
+          label="X"
+          icon={<XIcon className="h-4 w-4" />}
         />
         <button
           type="button"
@@ -52,11 +48,11 @@ export function SocialShare({
             }
             await navigator.clipboard.writeText(url);
             setCopied(true);
-            setTimeout(() => setCopied(false), 1200);
+            setTimeout(() => setCopied(false), 1500);
           }}
-          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-2 text-xs text-ink-light/70 transition hover:border-accent-cyan/40 hover:text-accent-cyan dark:text-ink-dark/70"
+          className="btn btn-sm bg-surface text-fg shadow-sm hover:bg-fill"
         >
-          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+          {copied ? <Check className="h-4 w-4 text-brand" /> : <Link2 className="h-4 w-4" />}
           {copied ? copiedLabel : copyLabel}
         </button>
       </div>
@@ -64,25 +60,17 @@ export function SocialShare({
   );
 }
 
-function ShareLink({
-  href,
-  label,
-  icon
-}: {
-  href: string;
-  label: string;
-  icon: ReactNode;
-}) {
+function ShareLink({ href, label, icon }: { href: string; label: string; icon: ReactNode }) {
   return (
-    <Link
+    <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-2 text-xs text-ink-light/70 transition hover:border-accent-cyan/40 hover:text-accent-cyan dark:text-ink-dark/70"
+      className="btn btn-sm bg-surface text-fg shadow-sm hover:bg-fill"
       aria-label={label}
     >
       {icon}
       {label}
-    </Link>
+    </a>
   );
 }

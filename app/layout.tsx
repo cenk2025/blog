@@ -1,41 +1,59 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { ReactNode } from "react";
 import "@/app/globals.css";
 
-import { siteUrl } from "@/lib/site";
+import { siteName, siteUrl } from "@/lib/site";
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-inter"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Futureframe | Personal Technology Blog",
-    template: "%s | Futureframe"
+    default: `${siteName} | Cenk Yakinlar`,
+    template: `%s | ${siteName}`
   },
   description:
-    "A premium personal technology blog about AI, software development, and future technologies.",
-  keywords: ["AI", "Artificial Intelligence", "Software Engineering", "Tech Blog", "Future Technologies", "Web Development"],
+    "Cenk Yakinlarin blogi tekoälystä, osaamisesta ja työn tulevaisuudesta. Kirjoituksia VOON IQ:n rakentamisesta Jyväskylästä.",
+  keywords: ["tekoäly", "AI", "osaaminen", "työn tulevaisuus", "VOON IQ", "Talent Factory", "BizPulse"],
   authors: [{ name: "Cenk Yakinlar", url: "https://www.linkedin.com/in/cenk-yakinlar-7417385b/" }],
   creator: "Cenk Yakinlar",
+  icons: {
+    icon: "/brand/voon-mark-color.png",
+    apple: "/brand/voon-mark-color.png"
+  },
   openGraph: {
-    title: "Futureframe",
-    description: "A premium personal technology blog about AI, software development, and future technologies.",
+    title: siteName,
+    description:
+      "Cenk Yakinlarin blogi tekoälystä, osaamisesta ja työn tulevaisuudesta.",
     type: "website",
-    siteName: "Futureframe",
-    locale: "en_US"
+    siteName,
+    images: [{ url: "/images/covers/default.jpg" }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Futureframe",
-    description: "A premium personal technology blog about AI, software development, and future technologies.",
+    title: siteName,
     creator: "@cenkyakinlar"
   }
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" }
+  ]
+};
+
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <html lang="fi" className={inter.variable} suppressHydrationWarning>
+      <body className="font-sans">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
       </body>

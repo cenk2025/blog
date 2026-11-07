@@ -12,28 +12,16 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <button
-        aria-label="Toggle theme"
-        className="h-10 w-10 rounded-full border border-black/5 bg-black/[0.02] dark:border-white/15 dark:bg-white/5"
-      />
-    );
-  }
-
-  const dark = resolvedTheme !== "light";
+  const dark = mounted && resolvedTheme === "dark";
 
   return (
     <button
+      type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(dark ? "light" : "dark")}
-      className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/5 bg-black/[0.02] text-ink-light transition duration-300 hover:border-accent-cyan/60 hover:bg-black/5 dark:border-white/15 dark:bg-white/5 dark:text-ink-dark dark:hover:bg-white/10"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full text-fg-2 transition hover:bg-fill hover:text-fg"
     >
-      {dark ? (
-        <Sun className="h-4 w-4 transition group-hover:rotate-12" />
-      ) : (
-        <Moon className="h-4 w-4 transition group-hover:-rotate-12" />
-      )}
+      {mounted && (dark ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />)}
     </button>
   );
 }

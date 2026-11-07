@@ -1,7 +1,8 @@
 import { PostCard } from "@/components/post-card";
 import { SectionHeader } from "@/components/section-header";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
-import { createPublicClient } from "@/lib/supabase/public";
+import { getCategory, getPosts } from "@/lib/posts";
+import { siteName } from "@/lib/site";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -18,21 +19,14 @@ export async function generateMetadata({
     notFound();
   }
 
-  const supabase = createPublicClient();
-  const decodedSlug = decodeURIComponent(slug);
-
-  const { data: category } = await supabase
-    .from("categories")
-    .select("*")
-    .eq("slug", decodedSlug)
-    .single();
+  const category = await getCategory(decodeURIComponent(slug));
 
   if (!category) {
     notFound();
   }
 
   return {
-    title: `${category.translations[lang]?.name || category.slug} | Futureframe`,
+    title: `${category.translations[lang]?.name || category.key} | ${siteName}`,
     description: category.translations[lang]?.description,
     alternates: {
       canonical: `/${lang}/categories/${slug}`
@@ -53,66 +47,41 @@ export default async function CategoryPage({
 
   const locale = lang as Locale;
   const dict = getDictionary(locale);
-  const supabase = createPublicClient();
-  const decodedSlug = decodeURIComponent(slug);
-
-  const { data: category } = await supabase
-    .from("categories")
-    .select("*")
-    .eq("slug", decodedSlug)
-    .single();
+  const category = await getCategory(decodeURIComponent(slug));
 
   if (!category) {
     notFound();
   }
 
-  const { data: rawPosts } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("category_id", category.id)
-    .order("published_at", { ascending: false });
-
-  const sortedPosts =
-    rawPosts?.map((p) => ({
-      slug: p.slug,
-      coverImage: p.cover_image || "/images/covers/ai-systems.svg",
-      author: p.author,
-      publishedAt: p.published_at,
-      readingTime: p.reading_time,
-      tags: p.tags || [],
-      featured: p.featured,
-      category: p.category_id,
-      translations: p.translations
-    })) || [];
+  const posts = await getPosts(category.id);
 
   return (
-    <div>
-      <SectionHeader 
-        title={category.translations[locale]?.name || category.slug} 
-        subtitle={category.translations[locale]?.description || ""} 
-      />
-      
-      {sortedPosts.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {sortedPosts.map((post, index) => (
-            <PostCard
-              key={post.slug}
-              post={post}
-              locale={locale}
-              readLabel={dict.blog.readArticle}
-              minuteLabel={dict.blog.minRead}
-              priority={index < 2}
-              index={index}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <p className="text-lg text-ink-light/70 dark:text-ink-dark/70">
-            {locale === "fi" ? "Tässä kategoriassa ei ole vielä julkaisuja." : "No posts found in this category."}
-          </p>
-        </div>
-      )}
+    <div className="section bg-bg-alt">
+      <div className="container-wide">
+        <SectionHeader
+          as="h1"
+          eyebrow={dict.categoriesPage.eyebrow}
+          title={category.translations[locale]?.name || category.key}
+          subtitle={category.translations[locale]?.description || ""}
+        />
+
+        {posts.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, index) => (
+              <PostCard
+                key={post.slug}
+                post={post}
+                locale={locale}
+                readLabel={dict.blog.readArticle}
+                minuteLabel={dict.blog.minRead}
+                priority={index < 2}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="t-sub py-20 text-center">{dict.categoriesPage.empty}</p>
+        )}
+      </div>
     </div>
   );
 }

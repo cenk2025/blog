@@ -1,18 +1,19 @@
+import { ArticleBody } from "@/components/article-body";
+import { PostCard } from "@/components/post-card";
 import { SocialShare } from "@/components/social-share";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
+import { getPost, getPosts } from "@/lib/posts";
+import { authorLinkedIn, siteName, siteUrl } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
-import { createPublicClient } from "@/lib/supabase/public";
-import { ArrowLeft, CalendarDays, Clock3 } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { siteUrl } from "@/lib/site";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return []; // We will render on demand for now since data comes from Supabase
+  return []; // Rendered on demand since data comes from Supabase
 }
 
 export async function generateMetadata({
@@ -26,21 +27,16 @@ export async function generateMetadata({
     notFound();
   }
 
-  const supabase = createPublicClient();
-  const { data: post } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  const translated = post.translations[lang] || post.translations["en"];
+  const translated = post.translations[lang] || post.translations.en;
 
   return {
-    title: `${translated.title} | Futureframe`,
+    title: `${translated.title} | ${siteName}`,
     description: translated.excerpt,
     alternates: {
       canonical: `/${lang}/blog/${slug}`
@@ -48,16 +44,16 @@ export async function generateMetadata({
     openGraph: {
       title: translated.title,
       description: translated.excerpt,
-      images: [{ url: post.cover_image || "/images/covers/ai-systems.svg" }],
+      images: [{ url: post.coverImage }],
       type: "article",
-      publishedTime: post.published_at,
+      publishedTime: post.publishedAt,
       authors: [post.author]
     },
     twitter: {
       card: "summary_large_image",
       title: translated.title,
       description: translated.excerpt,
-      images: [post.cover_image || "/images/covers/ai-systems.svg"]
+      images: [post.coverImage]
     }
   };
 }
@@ -74,142 +70,134 @@ export default async function BlogPostPage({
   }
 
   const locale = lang as Locale;
-  const supabase = createPublicClient();
-  const { data: rawPost } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+  const post = await getPost(slug);
 
-  if (!rawPost) {
+  if (!post) {
     notFound();
   }
 
-  const post = {
-    slug: rawPost.slug,
-    coverImage: rawPost.cover_image || "/images/covers/ai-systems.svg",
-    bottomImage: rawPost.bottom_image || null,
-    author: rawPost.author,
-    publishedAt: rawPost.published_at,
-    readingTime: rawPost.reading_time,
-    tags: rawPost.tags || [],
-    translations: rawPost.translations
-  };
-
   const dict = getDictionary(locale);
-  const translated = post.translations[locale] || post.translations["en"];
+  const translated = post.translations[locale] || post.translations.en;
+  const morePosts = (await getPosts()).filter((p) => p.slug !== post.slug).slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: translated.title,
     description: translated.excerpt,
-    image: post.coverImage,
+    image: post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: {
       "@type": "Person",
       name: post.author,
-      url: "https://www.linkedin.com/in/cenk-yakinlar-7417385b/"
+      url: authorLinkedIn
     },
     publisher: {
       "@type": "Organization",
-      name: "Futureframe",
+      name: "VOON IQ",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/favicon.ico`
+        url: `${siteUrl}/brand/voon-logo-color.png`
       }
     }
   };
 
   return (
-    <article className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div>
-        <Link
-          href={`/${locale}/blog`}
-          className="mb-6 inline-flex items-center gap-2 text-sm text-ink-light/70 transition hover:text-accent-cyan dark:text-ink-dark/70"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {dict.article.backToBlog}
-        </Link>
+    <>
+      <article className="pb-20 pt-12 md:pb-28 md:pt-20">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        <h1 className="font-display text-balance text-4xl font-semibold leading-tight text-ink-light dark:text-ink-dark md:text-5xl">
-          {translated.title}
-        </h1>
-        <p className="mt-4 text-lg text-ink-light/70 dark:text-ink-dark/70">{translated.excerpt}</p>
+        <header className="container-read">
+          <Link href={`/${locale}/blog`} className="text-[15px] font-medium text-brand hover:underline">
+            ‹ {dict.article.backToBlog}
+          </Link>
+          {post.tags[0] && <p className="t-eyebrow mt-8">{post.tags[0]}</p>}
+          <h1 className="mt-3 text-[clamp(2.25rem,1.6rem+2.6vw,3.5rem)] font-semibold leading-[1.06] tracking-[-0.03em] [text-wrap:balance]">
+            {translated.title}
+          </h1>
+          <p className="t-sub mt-5">{translated.excerpt}</p>
 
-        <div className="mt-6 flex flex-wrap gap-4 text-sm text-ink-light/65 dark:text-ink-dark/65">
-          <span>
-            {dict.article.by} {post.author}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarDays className="h-4 w-4" />
-            {dict.article.published} {formatDate(post.publishedAt, locale)}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Clock3 className="h-4 w-4" />
-            {post.readingTime} {dict.blog.minRead}
-          </span>
-        </div>
+          <div className="mt-8 flex items-center gap-3 border-y border-line py-4">
+            <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
+              <Image src="/images/author.jpg" alt={post.author} fill sizes="44px" className="object-cover" />
+            </span>
+            <div className="leading-tight">
+              <p className="text-[17px] font-semibold">{post.author}</p>
+              <p className="mt-0.5 text-[15px] text-fg-2">
+                {formatDate(post.publishedAt, locale)} · {post.readingTime} {dict.blog.minRead}
+              </p>
+            </div>
+          </div>
+        </header>
 
-        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-3xl border border-white/10">
-          <Image
-            src={post.coverImage}
-            alt={translated.title}
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div className="mt-8 max-w-none">
-          {translated.content?.map((paragraph: string) => (
-            <p
-              key={paragraph}
-              className="mb-5 text-lg leading-relaxed text-ink-light/85 dark:text-ink-dark/85"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
-
-        {post.bottomImage && (
-          <div className="relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-3xl border border-white/10 shadow-lg">
+        <div className="container-apple mt-10 md:mt-14">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-[28px] bg-bg-alt md:rounded-[34px]">
             <Image
-              src={post.bottomImage}
-              alt={`${translated.title} bottom image`}
+              src={post.coverImage}
+              alt={translated.title}
               fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              priority
+              sizes="(max-width: 1068px) 100vw, 1068px"
               className="object-cover"
             />
           </div>
-        )}
-
-        <div className="mt-8 flex flex-wrap gap-2">
-          {post.tags?.map((tag: string) => (
-            <span
-              key={tag}
-              className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs text-ink-light/75 dark:text-ink-dark/75"
-            >
-              {tag}
-            </span>
-          ))}
         </div>
-      </div>
 
-      <aside className="lg:sticky lg:top-24 lg:h-fit">
-        <SocialShare
-          title={translated.title}
-          shareLabel={dict.article.share}
-          copyLabel={dict.article.copyLink}
-          copiedLabel={dict.article.shareCopied}
-        />
-      </aside>
-    </article>
+        <div className="container-read mt-12 md:mt-16">
+          <ArticleBody paragraphs={translated.content ?? []} />
+
+          {post.bottomImage && (
+            <div className="relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-[28px]">
+              <Image
+                src={post.bottomImage}
+                alt=""
+                fill
+                sizes="(max-width: 700px) 100vw, 700px"
+                className="object-cover"
+              />
+            </div>
+          )}
+
+          {post.tags.length > 0 && (
+            <div className="mt-12 flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span key={tag} className="chip">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-10">
+            <SocialShare
+              title={translated.title}
+              shareLabel={dict.article.share}
+              copyLabel={dict.article.copyLink}
+              copiedLabel={dict.article.shareCopied}
+            />
+          </div>
+        </div>
+      </article>
+
+      {morePosts.length > 0 && (
+        <section className="section bg-bg-alt">
+          <div className="container-wide">
+            <h2 className="t-title mb-10">{dict.article.moreTitle}</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {morePosts.map((p) => (
+                <PostCard
+                  key={p.slug}
+                  post={p}
+                  locale={locale}
+                  readLabel={dict.blog.readArticle}
+                  minuteLabel={dict.blog.minRead}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

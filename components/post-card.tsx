@@ -1,12 +1,18 @@
-"use client";
-
 import type { Locale } from "@/lib/i18n";
 import type { BlogPost } from "@/lib/types";
 import { cn, formatDate } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+type PostCardProps = {
+  post: BlogPost;
+  locale: Locale;
+  readLabel: string;
+  minuteLabel: string;
+  priority?: boolean;
+  /** "lead" = large horizontal story card used for the top article. */
+  variant?: "default" | "lead";
+};
 
 export function PostCard({
   post,
@@ -14,79 +20,62 @@ export function PostCard({
   readLabel,
   minuteLabel,
   priority = false,
-  index = 0
-}: {
-  post: BlogPost;
-  locale: Locale;
-  readLabel: string;
-  minuteLabel: string;
-  priority?: boolean;
-  index?: number;
-}) {
-  const localized = post.translations[locale];
+  variant = "default"
+}: PostCardProps) {
+  const localized = post.translations[locale] ?? post.translations.en;
+  const lead = variant === "lead";
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12%" }}
-      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: index * 0.05 }}
-      className="group h-full"
-    >
+    <article className="group h-full">
       <Link
         href={`/${locale}/blog/${post.slug}`}
-        className="flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-card backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06]"
+        className={cn(
+          "flex h-full flex-col overflow-hidden rounded-[28px] bg-surface shadow-card transition duration-500 ease-apple hover:-translate-y-1",
+          lead && "md:grid md:grid-cols-[1.25fr_1fr]"
+        )}
       >
-        <div className="relative aspect-[16/9] overflow-hidden">
+        <div className={cn("relative overflow-hidden bg-bg-alt", lead ? "aspect-[16/10] md:aspect-auto md:min-h-[440px]" : "aspect-[16/10]")}>
           <Image
             src={post.coverImage}
             alt={localized.title}
             fill
             priority={priority}
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.04]"
+            sizes={lead ? "(max-width: 768px) 100vw, 60vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"}
+            className="object-cover transition duration-700 ease-apple group-hover:scale-[1.03]"
           />
         </div>
 
-        <div className="flex flex-1 flex-col p-6">
-          <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-ink-light/65 dark:text-ink-dark/65">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="h-3.5 w-3.5" />
-              {formatDate(post.publishedAt, locale)}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock3 className="h-3.5 w-3.5" />
-              {post.readingTime} {minuteLabel}
-            </span>
-          </div>
+        <div className={cn("flex flex-1 flex-col", lead ? "p-7 md:p-10 md:justify-center" : "p-6 md:p-7")}>
+          {post.tags[0] && <p className="t-eyebrow mb-3 text-[15px]">{post.tags[0]}</p>}
 
-          <h3 className="font-display text-xl font-semibold leading-snug text-ink-light transition group-hover:text-accent-cyan dark:text-ink-dark">
+          <h3
+            className={cn(
+              "font-semibold text-fg [text-wrap:balance]",
+              lead
+                ? "text-[28px] leading-[1.1] tracking-[-0.025em] md:text-[40px]"
+                : "text-[22px] leading-[1.18] tracking-[-0.02em]"
+            )}
+          >
             {localized.title}
           </h3>
-          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-light/70 dark:text-ink-dark/70">
+
+          <p
+            className={cn(
+              "mt-3 text-fg-2 [text-wrap:pretty]",
+              lead ? "line-clamp-4 text-[17px] leading-[1.5] md:text-[19px]" : "line-clamp-3 text-[17px] leading-[1.47]"
+            )}
+          >
             {localized.excerpt}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className={cn(
-                  "rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-xs text-ink-light/75 dark:text-ink-dark/75",
-                  tag === "AI" && "border-accent-cyan/35 text-accent-cyan"
-                )}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent-cyan">
-            {readLabel}
-            <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
+            <p className="text-[15px] text-fg-3">
+              {formatDate(post.publishedAt, locale)} · {post.readingTime} {minuteLabel}
+            </p>
+            <span className="link-more text-[15px]">{readLabel}</span>
           </div>
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 }
