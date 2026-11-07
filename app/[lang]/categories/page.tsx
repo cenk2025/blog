@@ -1,7 +1,8 @@
 import { CategoryCard } from "@/components/category-card";
 import { SectionHeader } from "@/components/section-header";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
-import { createPublicClient } from "@/lib/supabase/public";
+import { getCategories, getPosts } from "@/lib/posts";
+import { siteName } from "@/lib/site";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const dict = getDictionary(lang);
 
   return {
-    title: `${dict.categoriesPage.title} | Futureframe`,
+    title: `${dict.categoriesPage.eyebrow} | ${siteName}`,
     description: dict.categoriesPage.subtitle,
     alternates: {
       canonical: `/${lang}/categories`
@@ -42,26 +43,32 @@ export default async function CategoriesPage({
 
   const locale = lang as Locale;
   const dict = getDictionary(locale);
-  const supabase = createPublicClient();
-
-  const { data: rawCategories } = await supabase.from("categories").select("*");
-  const categories =
-    rawCategories?.map((c) => ({
-      key: c.slug,
-      icon: "Sparkles",
-      translations: c.translations
-    })) || [];
+  const [categories, posts] = await Promise.all([getCategories(), getPosts()]);
 
   return (
-    <div>
-      <SectionHeader
-        title={dict.categoriesPage.title}
-        subtitle={dict.categoriesPage.subtitle}
-      />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {categories.map((category, index) => (
-          <CategoryCard key={category.key} category={category} locale={locale} index={index} />
-        ))}
+    <div className="section bg-bg-alt">
+      <div className="container-wide">
+        <SectionHeader
+          as="h1"
+          eyebrow={dict.categoriesPage.eyebrow}
+          title={dict.categoriesPage.title}
+          subtitle={dict.categoriesPage.subtitle}
+        />
+        {categories.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.key}
+                category={category}
+                locale={locale}
+                count={posts.filter((p) => p.category === category.id).length}
+                countLabel={dict.categoriesPage.posts}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="t-sub py-20 text-center">{dict.categoriesPage.empty}</p>
+        )}
       </div>
     </div>
   );

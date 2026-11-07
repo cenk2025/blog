@@ -52,13 +52,10 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <div className="relative min-h-screen overflow-x-clip">
-      <div className="pointer-events-none fixed inset-0 z-[-1] opacity-60 dark:opacity-100" />
+    <div lang={locale} className="flex min-h-screen flex-col overflow-x-clip">
       <Navbar locale={locale} dict={dict} />
-      <main className="mx-auto max-w-6xl px-4 pb-10 pt-8 md:px-6">{children}</main>
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <Footer locale={locale} dict={dict} />
-      </div>
+      <main className="flex-1">{children}</main>
+      <Footer locale={locale} dict={dict} />
     </div>
   );
 }

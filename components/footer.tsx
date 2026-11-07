@@ -1,60 +1,61 @@
 import { Dictionary, Locale } from "@/lib/i18n";
-import { Github, Linkedin } from "lucide-react";
-import { XIcon } from "@/components/icons/x-icon";
+import { authorLinkedIn } from "@/lib/site";
+import { Linkedin } from "lucide-react";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Logo } from "@/components/logo";
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
 
+  const links = [
+    { label: dict.nav.blog, href: `/${locale}/blog` },
+    { label: dict.nav.categories, href: `/${locale}/categories` },
+    { label: dict.nav.about, href: `/${locale}/about` },
+    { label: dict.nav.contact, href: `/${locale}/contact` }
+  ];
+
   return (
-    <footer className="mt-16 border-t border-white/10 py-8">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 sm:flex-row sm:items-center md:px-6">
-        <div>
-          <p className="font-display text-lg text-ink-light dark:text-ink-dark">Futureframe</p>
-          <p className="mt-1 text-sm text-ink-light/65 dark:text-ink-dark/65">
-            (c) {year} Cenk Yakinlar. {dict.footer.rights}
-          </p>
+    <footer className="bg-bg-alt">
+      <div className="container-wide py-14">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
+          <div>
+            <Logo className="h-7 w-auto" />
+            <p className="mt-4 text-[17px] font-semibold text-fg">{dict.footer.tagline}</p>
+            <p className="mt-1 text-[15px] text-fg-2">{dict.footer.product} · Jyväskylä</p>
+          </div>
+
+          <nav className="grid grid-cols-2 gap-x-12 gap-y-3 text-[15px] sm:flex sm:gap-8">
+            {links.map((link) => (
+              <Link key={link.href} href={link.href} className="text-fg-2 transition hover:text-fg">
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="https://voon.fi"
+              target="_blank"
+              rel="noreferrer"
+              className="text-fg-2 transition hover:text-fg"
+            >
+              voon.fi
+            </Link>
+          </nav>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="mt-12 flex items-center justify-between gap-4 border-t border-line pt-6 text-[14px] text-fg-3">
+          <p>
+            © {year} Cenk Yakinlar · VOON IQ. {dict.footer.rights}
+          </p>
           <Link
-            href={`/${locale}/contact`}
-            className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 text-sm text-ink-light/75 transition hover:border-white/30 hover:text-ink-light dark:text-ink-dark/75 dark:hover:text-ink-dark"
+            href={authorLinkedIn}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-fg-2 transition hover:bg-fill hover:text-fg"
           >
-            {dict.nav.contact}
+            <Linkedin className="h-[18px] w-[18px]" />
           </Link>
-          <SocialIcon href="https://github.com" label="GitHub" icon={<Github className="h-4 w-4" />} />
-          <SocialIcon
-            href="https://www.linkedin.com/in/cenk-yakinlar-7417385b/"
-            label="LinkedIn"
-            icon={<Linkedin className="h-4 w-4" />}
-          />
-          <SocialIcon href="https://x.com" label="X" icon={<XIcon className="h-4 w-4" />} />
         </div>
       </div>
     </footer>
-  );
-}
-
-function SocialIcon({
-  href,
-  label,
-  icon
-}: {
-  href: string;
-  label: string;
-  icon: ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-ink-light/70 transition hover:border-accent-cyan/45 hover:text-accent-cyan dark:text-ink-dark/70"
-    >
-      {icon}
-    </Link>
   );
 }

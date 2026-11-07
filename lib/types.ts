@@ -1,7 +1,5 @@
 import { Locale } from "@/lib/i18n";
 
-export type CategoryKey = "ai" | "software" | "trends" | "future" | "tutorials";
-
 export type LocalizedContent = {
   title: string;
   excerpt: string;
@@ -11,17 +9,18 @@ export type LocalizedContent = {
 export type BlogPost = {
   slug: string;
   coverImage: string;
+  bottomImage?: string | null;
   author: string;
   publishedAt: string;
   readingTime: number;
   tags: string[];
   featured: boolean;
-  category: CategoryKey;
+  category: string | null;
   translations: Record<Locale, LocalizedContent>;
 };
 
 export type Category = {
-  key: CategoryKey;
+  key: string;
   icon: string;
   translations: Record<Locale, { name: string; description: string }>;
 };

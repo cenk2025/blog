@@ -1,70 +1,57 @@
 import type { Config } from "tailwindcss";
 
+// VOON IQ design system: neutral canvas + one accent (the VOON gradient).
+// Colours resolve to CSS variables in app/globals.css so light/dark switch automatically.
 const config: Config = {
   darkMode: ["class"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./providers/**/*.{js,ts,jsx,tsx,mdx}",
-    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
-    "./data/**/*.{js,ts,jsx,tsx,mdx}"
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     extend: {
       colors: {
-        canvas: {
-          dark: "#04070f",
-          light: "#f4f8ff"
-        },
-        ink: {
-          dark: "#e7f0ff",
-          light: "#0e1629"
-        },
-        accent: {
-          cyan: "#45d4ff",
-          emerald: "#43f0c2",
-          amber: "#f5c772"
-        }
+        bg: "var(--bg)",
+        "bg-alt": "var(--bg-alt)",
+        surface: "var(--surface)",
+        fg: "var(--fg)",
+        "fg-2": "var(--fg-2)",
+        "fg-3": "var(--fg-3)",
+        line: "var(--line)",
+        fill: "var(--fill)",
+        brand: "var(--brand)",
+        // Legacy names still used by the admin panel, remapped to VOON IQ values.
+        canvas: { light: "#f5f5f7", dark: "#000000" },
+        ink: { light: "#1d1d1f", dark: "#f5f5f7" },
+        accent: { cyan: "#e8264f", emerald: "#fd4180", amber: "#fb2b3b" }
       },
       fontFamily: {
-        display: [
-          "\"Sora\"",
-          "\"Avenir Next\"",
-          "\"Segoe UI Variable Display\"",
+        display: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "\"Helvetica Neue\"", "Arial", "sans-serif"],
+        sans: [
+          "var(--font-inter)",
+          "-apple-system",
+          "BlinkMacSystemFont",
           "\"Helvetica Neue\"",
-          "sans-serif"
-        ],
-        body: [
-          "\"General Sans\"",
-          "\"Avenir Next\"",
-          "\"Segoe UI Variable Text\"",
-          "\"Helvetica Neue\"",
+          "Arial",
           "sans-serif"
         ]
       },
       backgroundImage: {
-        "aurora-dark":
-          "radial-gradient(circle at 15% 15%, rgba(69, 212, 255, 0.22), transparent 38%), radial-gradient(circle at 80% 10%, rgba(67, 240, 194, 0.18), transparent 35%), linear-gradient(160deg, #04070f 0%, #060d1d 55%, #050915 100%)",
-        "aurora-light":
-          "radial-gradient(circle at 10% 10%, rgba(76, 130, 255, 0.15), transparent 35%), radial-gradient(circle at 85% 0%, rgba(67, 240, 194, 0.12), transparent 30%), linear-gradient(165deg, #f4f8ff 0%, #eef4ff 45%, #f8fbff 100%)"
+        grad: "linear-gradient(90deg, #fb2b3b, #fd4180)"
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(69, 212, 255, 0.3), 0 10px 40px rgba(33, 191, 255, 0.2)",
-        card: "0 16px 50px rgba(2, 7, 20, 0.35)"
+        card: "0 2px 12px -4px rgba(0, 0, 0, 0.06), 0 18px 40px -24px rgba(0, 0, 0, 0.18)",
+        brand: "0 8px 24px -10px rgba(253, 53, 93, 0.7)"
       },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" }
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% center" },
-          "100%": { backgroundPosition: "200% center" }
-        }
+      transitionTimingFunction: {
+        apple: "cubic-bezier(0.28, 0.11, 0.32, 1)"
       },
-      animation: {
-        float: "float 6s ease-in-out infinite",
-        shimmer: "shimmer 8s linear infinite"
+      maxWidth: {
+        text: "980px",
+        wide: "1200px",
+        read: "700px"
       }
     }
   },

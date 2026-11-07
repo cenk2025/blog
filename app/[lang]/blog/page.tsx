@@ -1,7 +1,8 @@
 import { PostCard } from "@/components/post-card";
 import { SectionHeader } from "@/components/section-header";
 import { getDictionary, isValidLocale, Locale } from "@/lib/i18n";
-import { createPublicClient } from "@/lib/supabase/public";
+import { getPosts } from "@/lib/posts";
+import { siteName } from "@/lib/site";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const dict = getDictionary(lang);
 
   return {
-    title: `${dict.blog.title} | Futureframe`,
+    title: `${dict.blog.eyebrow} | ${siteName}`,
     description: dict.blog.subtitle,
     alternates: {
       canonical: `/${lang}/blog`
@@ -38,41 +39,32 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
 
   const locale = lang as Locale;
   const dict = getDictionary(locale);
-  const supabase = createPublicClient();
+  const posts = await getPosts();
+  const [leadPost, ...rest] = posts;
 
-  const { data: rawPosts } = await supabase
-    .from("posts")
-    .select("*")
-    .order("published_at", { ascending: false });
-
-  const sortedPosts =
-    rawPosts?.map((p) => ({
-      slug: p.slug,
-      coverImage: p.cover_image || "/images/covers/ai-systems.svg",
-      author: p.author,
-      publishedAt: p.published_at,
-      readingTime: p.reading_time,
-      tags: p.tags || [],
-      featured: p.featured,
-      category: p.category_id,
-      translations: p.translations
-    })) || [];
+  const cardProps = {
+    locale,
+    readLabel: dict.blog.readArticle,
+    minuteLabel: dict.blog.minRead
+  };
 
   return (
-    <div>
-      <SectionHeader title={dict.blog.title} subtitle={dict.blog.subtitle} />
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {sortedPosts.map((post, index) => (
-          <PostCard
-            key={post.slug}
-            post={post}
-            locale={locale}
-            readLabel={dict.blog.readArticle}
-            minuteLabel={dict.blog.minRead}
-            priority={index < 2}
-            index={index}
-          />
-        ))}
+    <div className="section bg-bg-alt">
+      <div className="container-wide">
+        <SectionHeader as="h1" eyebrow={dict.blog.eyebrow} title={dict.blog.title} subtitle={dict.blog.subtitle} />
+
+        {leadPost ? (
+          <>
+            <PostCard post={leadPost} variant="lead" priority {...cardProps} />
+            <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {rest.map((post, index) => (
+                <PostCard key={post.slug} post={post} priority={index < 2} {...cardProps} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="t-sub py-20 text-center">{dict.blog.empty}</p>
+        )}
       </div>
     </div>
   );
