@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Cenk Yakinlar", url: "https://www.linkedin.com/in/cenk-yakinlar-7417385b/" }],
   creator: "Cenk Yakinlar",
   icons: {
-    icon: "/brand/voon-mark-color.png",
-    apple: "/brand/voon-mark-color.png"
+    icon: "/icon.png",
+    apple: "/apple-touch-icon.png"
   },
   openGraph: {
     title: siteName,
